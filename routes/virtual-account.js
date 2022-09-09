@@ -12,7 +12,7 @@ exports.generateMandiriVa = async (req, res) => {
     setupConfiguration.request_id = crypto.randomUUID()
     setupConfiguration.request_timestamp = new Date().toISOString().slice(0, 19) + "Z"
 
-    let hmac = setupConfiguration.api_target.includes('mandiri') ? "HMACSHA256=" : "HMACSHA256="
+    let hmac = "HMACSHA256="
 
     paymentCodeRequest.order.invoice_number = rb.invoice_number
     paymentCodeRequest.order.amount = rb.amount
@@ -49,6 +49,8 @@ exports.generateMandiriVa = async (req, res) => {
 
         // console.log(response)
 
+        // if succeed, save response data (virtual_account_info) to database 
+        // the return below is for example purpose, you may change the response data with yours for front-end consume
         return res.status(200).json({
             success: true,
             message: msg.MSG20018,
